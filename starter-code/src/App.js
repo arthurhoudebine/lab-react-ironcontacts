@@ -1,19 +1,38 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import contacts from './contacts.json'
+import ArtistTable from './Components/ArtistTable'
+
+
 
 class App extends Component {
+
+  state= {
+    displayedContacts : contacts.slice(0,5)
+  }
+
+  addContactHandler = () => {
+    const randomContact = contacts[Math.floor(Math.random()*contacts.length-1)];
+    // console.log(randomContact);
+    
+    const displayedContactsCopy = [...this.state.displayedContacts];
+    displayedContactsCopy.push(randomContact);
+
+    this.setState({
+        displayedContacts: displayedContactsCopy,
+    })
+  }
+  
+
   render() {
     return (
+      <div>
+        <button onClick= {this.addContactHandler} >Add Random Contact</button>
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <ArtistTable contacts={this.state.displayedContacts}/>
       </div>
+      </div>  
     );
   }
 }
