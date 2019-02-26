@@ -23,12 +23,42 @@ class App extends Component {
         displayedContacts: displayedContactsCopy,
     })
   }
+
+  sortNameContactHandler = () => {
+    const sortedContactsCopy = [...this.state.displayedContacts];
+    sortedContactsCopy.sort(function(a, b){
+      if(a.name < b.name) { return -1; }
+      if(a.name > b.name) { return 1; }
+      return 0;
+       })
+
+    this.setState({
+        displayedContacts: sortedContactsCopy,
+    })
+  }
+
+  sortPopularityContactHandler = () => {
+    const sortedContactsPopCopy = [...this.state.displayedContacts];
+    sortedContactsPopCopy.sort(function(a, b){
+      if(a.popularity < b.popularity) { return 1; }
+      if(a.popularity > b.popularity) { return -1; }
+      return 0;
+       })
+
+    this.setState({
+        displayedContacts: sortedContactsPopCopy,
+    })
+  }
   
 
   render() {
     return (
       <div>
         <button onClick= {this.addContactHandler} >Add Random Contact</button>
+        <button onClick= {this.sortNameContactHandler} >Sort by name</button>
+        <button onClick= {this.sortPopularityContactHandler} >Sort by popularity</button>
+
+
       <div className="App">
         <ArtistTable contacts={this.state.displayedContacts}/>
       </div>
